@@ -1,19 +1,20 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import classnames from "classnames";
-import { loginUser } from "../../actions/authActions";
-
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import classnames from 'classnames';
+import { loginUser, loginWithGoogle } from '../../actions/authActions';
+import { Button, Icon } from 'antd';
+import 'antd/dist/antd.css';
 
 class Login extends Component {
   constructor() {
     super();
     this.state = {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
       errors: {}
     };
   }
@@ -21,13 +22,13 @@ class Login extends Component {
   componentDidMount() {
     // If logged in and user navigates to Login page, should redirect them to dashboard
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/");
+      this.props.history.push('/');
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
-      this.props.history.push("/");
+      this.props.history.push('/');
     }
 
     if (nextProps.errors) {
@@ -52,18 +53,26 @@ class Login extends Component {
     this.props.loginUser(userData);
   };
 
+  loginFacebook = () => {
+    // dispatch(loginWithFacebook())
+  };
+
+  loginGoogle = () => {
+    this.props.loginWithGoogle();
+  };
+
   render() {
     const { errors } = this.state;
 
     return (
       <div className="container">
-        <div style={{ marginTop: "4rem" }} className="row">
+        <div style={{ marginTop: '4rem' }} className="row">
           <div className="col s8 offset-s2">
             <Link to="/" className="btn-flat waves-effect">
               <i className="material-icons left">keyboard_backspace</i> Back to
               home
             </Link>
-            <div className="col s12" style={{ paddingLeft: "11.250px" }}>
+            <div className="col s12" style={{ paddingLeft: '11.250px' }}>
               <h4>
                 <b>Login</b> below
               </h4>
@@ -79,7 +88,7 @@ class Login extends Component {
                   error={errors.email}
                   id="email"
                   type="email"
-                  className={classnames("", {
+                  className={classnames('', {
                     invalid: errors.email || errors.emailnotfound
                   })}
                 />
@@ -96,7 +105,7 @@ class Login extends Component {
                   error={errors.password}
                   id="password"
                   type="password"
-                  className={classnames("", {
+                  className={classnames('', {
                     invalid: errors.password || errors.passwordincorrect
                   })}
                 />
@@ -106,19 +115,54 @@ class Login extends Component {
                   {errors.passwordincorrect}
                 </span>
               </div>
-              <div className="col s12" style={{ paddingLeft: "11.250px" }}>
+              <div className="col s12" style={{ paddingLeft: '11.250px' }}>
                 <button
                   style={{
-                    width: "150px",
-                    borderRadius: "3px",
-                    letterSpacing: "1.5px",
-                    marginTop: "1rem"
+                    width: '150px',
+                    borderRadius: '3px',
+                    letterSpacing: '1.5px',
+                    marginTop: '1rem'
                   }}
                   type="submit"
                   className="btn btn-large waves-effect waves-light hoverable blue accent-3"
                 >
                   Login
                 </button>
+              </div>
+              <div className="col s12" style={{ paddingLeft: '11.250px' }}>
+                <Button
+                  type="primary"
+                  className="horizontal-center social-login-button button-shadow"
+                  onClick={this.loginFacebook}
+                  style={{
+                    background: '#4267B2',
+                    borderColor: '#4267B2'
+                  }}
+                >
+                  <Icon
+                    type="facebook"
+                    theme="filled"
+                    style={{ fontSize: '20px' }}
+                  />
+                  Đăng Nhập Bằng Facebook
+                </Button>
+
+                <Button
+                  type="primary"
+                  className="horizontal-center social-login-button button-shadow"
+                  onClick={this.loginGoogle}
+                  style={{
+                    background: '#d34836',
+                    borderColor: '#d34836'
+                  }}
+                >
+                  <Icon
+                    type="google-circle"
+                    theme="filled"
+                    style={{ fontSize: '20px' }}
+                  />
+                  Đăng Nhập Bằng Google
+                </Button>
               </div>
             </form>
           </div>
@@ -141,5 +185,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { loginUser }
+  { loginUser, loginWithGoogle }
 )(Login);

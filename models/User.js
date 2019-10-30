@@ -15,6 +15,12 @@ const UserSchema = new Schema({
     type: String,
     required: true
   },
+  googleID:{
+    type:String
+  },
+  facebookID:{
+    type:String
+  },
   date: {
     type: Date,
     default: Date.now
@@ -22,3 +28,5 @@ const UserSchema = new Schema({
 });
 
 module.exports = User = mongoose.model("users", UserSchema,"MERN");
+//524078277234-2es1eicloqai5g0liv1vnk1sld2ueave.apps.googleusercontent.com
+//-woIP07QSSQZNCdipxku88J6
