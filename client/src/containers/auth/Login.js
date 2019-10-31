@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
-import { loginUser, loginWithGoogle } from '../../actions/authActions';
+import { loginUser, loginWithGoogle, loginWithFacebook } from '../../actions/authActions';
 import { Button, Icon } from 'antd';
 import 'antd/dist/antd.css';
 
@@ -54,7 +54,7 @@ class Login extends Component {
   };
 
   loginFacebook = () => {
-    // dispatch(loginWithFacebook())
+    this.props.loginWithFacebook();
   };
 
   loginGoogle = () => {
@@ -185,5 +185,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { loginUser, loginWithGoogle }
+  { loginUser, loginWithGoogle, loginWithFacebook }
 )(Login);

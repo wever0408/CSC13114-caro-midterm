@@ -5,6 +5,7 @@ const User = mongoose.model("users");
 const keys = require("../config/keys");
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
+const FacebookStrategy = require("passport-facebook").Strategy;
 
 module.exports = function(passport) {
   passport.serializeUser(function(user, done) {
@@ -58,7 +59,60 @@ module.exports = function(passport) {
                           name: profile.displayName,
                           email: profile.emails[0].value,
                           googleID: profile.id,
-                          facebookId
+                          facebookId:""
+                          //newUser.avatar = profile.photos[0].value;
+                        })
+                          .save()
+                          .then(() => {
+                            return cb(null, newUser);
+                          })
+                          .catch(err => cb(err));
+                      }
+                    })
+                    .catch(err => cb(err));
+                } else {
+                  return cb(null, user);
+                }
+              })
+              .catch(err => cb(err));
+          } else {
+            return cb(null, false);
+          }
+        } catch (e) {
+          console.error(e);
+          return cb(e);
+        }
+      }
+    )
+  );
+  passport.use(
+    new FacebookStrategy(
+      {
+        clientID: "401421594131119",
+        clientSecret: "306f93c1027526769ac25fe49c0da99c",
+        callbackURL: "/auth/facebook/callback",
+        profileFields: ["id", "displayName", "emails", "picture.type(large)"]
+      },
+      function(accessToken, refreshToken, profile, cb) {
+        try {
+          if (profile.id) {
+            User.findOne({ facebookID: profile.id })
+              .then(user => {
+                if (!user) {
+                  User.findOne({ email: profile.emails[0].value })
+                    .then(user2 => {
+                      if (user2) {
+                        //update id mapping
+                        //UserModel.updateGoogleID(user2.username, profile.id);
+                       User.findOneAndUpdate({"email":user2.email},{"facebookID":profile.id})
+                        return cb(null, user2);
+                      } else {
+                        const newUser = new User({
+                          password: profile.id,
+                          name: profile.displayName,
+                          email: profile.emails[0].value,
+                          facebookID: profile.id,
+                          googleID:""
                           //newUser.avatar = profile.photos[0].value;
                         })
                           .save()

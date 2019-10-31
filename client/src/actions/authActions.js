@@ -69,7 +69,41 @@ export const logoutUser = () => dispatch => {
   dispatch(setCurrentUser({}));
 };
 
-export const loginWithFacebook = () => {};
+export const loginWithFacebook = () => {
+  return dispatch => {
+    window.open(
+      `http://localhost:5000/auth/facebook`,
+      'mywindow',
+      'location=1,status=1,scrollbars=1, width=700,height=550'
+    );
+
+    window.addEventListener('message', function getData(message) {
+      const { data } = message;
+      if (data.returnCode) {
+        window.removeEventListener('message', getData);
+        if (data.returnCode === 1) {
+          // Save to localStorage
+
+          // Set token to localStorage
+          const { token } = data;
+          localStorage.setItem('jwtToken', token);
+          // Set token to Auth header
+          setAuthToken(token);
+          // Decode token to get user data
+          const decoded = jwt_decode(token);
+          // Set current user
+          return dispatch(setCurrentUser(decoded));
+        }
+        return dispatch({
+          type: GET_ERRORS,
+          payload: data.message
+        });
+      }
+    });
+    return null;
+  };
+};
+
 
 export const loginWithGoogle = () => {
   return dispatch => {
