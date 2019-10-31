@@ -69,9 +69,7 @@ export const logoutUser = () => dispatch => {
   dispatch(setCurrentUser({}));
 };
 
-export const loginWithFacebook = () => {
- 
-};
+export const loginWithFacebook = () => {};
 
 export const loginWithGoogle = () => {
   return dispatch => {
@@ -86,7 +84,6 @@ export const loginWithGoogle = () => {
       if (data.returnCode) {
         window.removeEventListener('message', getData);
         if (data.returnCode === 1) {
-         
           // Save to localStorage
 
           // Set token to localStorage
@@ -97,14 +94,13 @@ export const loginWithGoogle = () => {
           // Decode token to get user data
           const decoded = jwt_decode(token);
           // Set current user
-          dispatch(setCurrentUser(decoded));
+          return dispatch(setCurrentUser(decoded));
         }
-        return  dispatch({
+        return dispatch({
           type: GET_ERRORS,
           payload: data.message
         });
       }
-      return null;
     });
     return null;
   };
