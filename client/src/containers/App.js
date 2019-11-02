@@ -9,6 +9,7 @@ import { setCurrentUser, logoutUser } from '../actions/authActions';
 import GameStart from './Game';
 import Register from './auth/Register';
 import Login from './auth/Login';
+import MainPage from './MainPage';
 // import PrivateRoute from "./private-route/PrivateRouter"
 
 // Check for token to keep user logged in
@@ -34,9 +35,9 @@ if (localStorage.jwtToken) {
 const App = () => (
   <Router>
     <div className="App">
-      <Switch>
-        <Route exact path="/" component={GameStart} />
-      </Switch>
+      <Route exact path="/" component={MainPage} />
+      <Route exact path="/game" component={GameStart} />
+
       <Route exact path="/register" component={Register} />
       <Route exact path="/login" component={Login} />
     </div>

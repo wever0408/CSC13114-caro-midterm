@@ -107,11 +107,11 @@ class Game extends React.Component {
     logoutUser();
   }
 
-  onLogoutClick (e) {
-    const {logoutUser} = this.props;
-    e.preventDefault();
-    logoutUser();
-  }
+  // onLogoutClick (e) {
+  //   const {logoutUser} = this.props;
+  //   e.preventDefault();
+  //   logoutUser();
+  // }
 
   render() {
     const { p_history, p_isDescending, p_xIsNext, p_step } = this.props;
@@ -176,7 +176,7 @@ class Game extends React.Component {
                 letterSpacing: "1.5px",
                 marginTop: "1rem"
               }}
-              onClick={this.onLogoutClick.bind(this)}
+              //onClick={this.onLogoutClick.bind(this)}
               className="btn btn-large waves-effect waves-light hoverable blue accent-3"
             >
               Logout
@@ -201,7 +201,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators(action,dispatch),
-    logoutUser:() => dispatch(logoutUser())
+    //logoutUser:() => dispatch(logoutUser())
     
   };
 };
