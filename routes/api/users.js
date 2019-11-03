@@ -145,13 +145,57 @@ router.post("/update", (req, res, next) => {
           if (err) {
             res.json({
               returnCode: 0,
-              message: "Hệ Thống Có Lỗi. Vui Lòng Thử Lại Sau."
+              message: "Hệ thống có lỗi, vui lòng thử lại sau."
             });
           } else {
             console.log(doc);
             res.json({
               returnCode: 1,
-              message: "Cập Nhật Thành Công.",
+              message: "Cập nhật thành công.",
+              doc
+            });
+          }
+        }
+      );
+    }
+  )(req, res, next);
+});
+
+// @route POST user/password
+// @desc Change user password
+// @access Public
+router.post("/password", (req, res, next) => {
+  passport.authenticate(
+    "jwt",
+    {
+      session: false
+    },
+    async (err, user, info) => {
+      if (err || !user) {
+        return res.json({
+          returnCode: -1,
+          message: "JWT không hợp lệ."
+        });
+      }
+
+      const { email, password } = req.body;
+      const hash = bcrypt.hashSync(password, 10);
+
+      User.findOneAndUpdate(
+        { email: email },
+        { $set: { password: hash } },
+        { new: true },
+        (err, doc) => {
+          if (err) {
+            res.json({
+              returnCode: 0,
+              message: "Hệ thống có lỗi, vui lòng thử lại sau."
+            });
+          } else {
+            console.log(doc);
+            res.json({
+              returnCode: 1,
+              message: "Đổi mật khẩu thành công.",
               doc
             });
           }

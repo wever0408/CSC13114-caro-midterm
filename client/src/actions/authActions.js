@@ -156,7 +156,30 @@ export const updateUserInfo = userData => {
   };
 };
 
-export const changePassword = password => {};
+export const changePassword = password => {
+  (dispatch, getState) => {
+    const { email } = getState().auth.user;
+    axios
+      .post(
+        `/user/password`,
+        {
+          email,
+          password
+        },
+        {
+          timeout: 5000
+        }
+      )
+      .then(res => {
+        const data = res.data;
+        if (data.returnCode === 1) {
+          return dispatch(loginUser({ email, password }));
+        }
+        return dispatch(setErrorText(data.message));
+      })
+      .catch(() => dispatch(setErrorText(SYSTEM_ERROR)));
+  };
+};
 
 export const setErrorText = value => {
   return {

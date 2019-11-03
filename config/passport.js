@@ -25,7 +25,6 @@ module.exports = function(passport) {
       console.log(opts);
       User.findOne({email: jwt_payload.email})
         .then(user => {
-          console.log(jwt_payload.email);
           if (user) {
             return done(null, user);
 
