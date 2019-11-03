@@ -22,10 +22,13 @@ module.exports = function(passport) {
 
   passport.use(
     new JwtStrategy(opts, (jwt_payload, done) => {
-      User.findById(jwt_payload.id)
+      console.log(opts);
+      User.findOne({email: jwt_payload.email})
         .then(user => {
+          console.log(jwt_payload.email);
           if (user) {
             return done(null, user);
+
           }
           return done(null, false);
         })
@@ -51,7 +54,7 @@ module.exports = function(passport) {
                       if (user2) {
                         //update id mapping
                         //UserModel.updateGoogleID(user2.username, profile.id);
-                       User.findOneAndUpdate({"email":user2.email},{"googleID":profile.id})
+                       User.findOneAndUpdate({email: user2.email}, {googleID: profile.id})
                         return cb(null, user2);
                       } else {
                         const newUser = new User({
@@ -59,7 +62,7 @@ module.exports = function(passport) {
                           name: profile.displayName,
                           email: profile.emails[0].value,
                           googleID: profile.id,
-                          facebookId:""
+                          facebookID:""
                           //newUser.avatar = profile.photos[0].value;
                         })
                           .save()
@@ -104,7 +107,7 @@ module.exports = function(passport) {
                       if (user2) {
                         //update id mapping
                         //UserModel.updateGoogleID(user2.username, profile.id);
-                       User.findOneAndUpdate({"email":user2.email},{"facebookID":profile.id})
+                       User.findOneAndUpdate({email: user2.email}, {facebookID: profile.id})
                         return cb(null, user2);
                       } else {
                         const newUser = new User({

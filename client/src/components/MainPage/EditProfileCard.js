@@ -47,7 +47,7 @@ const EditProfileCard = React.memo(({ errorText, user, onClickCancel }) => {
   const updateInfo = () => {
     const formData = new FormData();
     //if (avatarFile) formData.append('file', avatarFile.originFileObj);
-    formData.append('Fullname', user.name);
+    formData.append('name', user.name);
     formData.append('email', email);
    
     //formData.append('avatar', user.avatar);

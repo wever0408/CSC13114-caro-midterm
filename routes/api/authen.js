@@ -57,7 +57,7 @@ router.get(
       {
         name: user.name,
         email: user.email,
-        avatar: user.avatar
+        //avatar: user.avatar
       },
       "1612585"
     );

@@ -104,7 +104,6 @@ export const loginWithFacebook = () => {
   };
 };
 
-
 export const loginWithGoogle = () => {
   return dispatch => {
     window.open(
@@ -140,17 +139,28 @@ export const loginWithGoogle = () => {
   };
 };
 
-export const updateUserInfo = (userData) => {
- 
+export const updateUserInfo = userData => {
+  dispatch => {
+    axios
+      .post(`/user/update`, userData, {
+        timeout: 20000
+      })
+      .then(res => {
+        const data = res.data;
+        if (data.returnCode === 1) {
+          return dispatch(setCurrentUser(data.doc));
+        }
+        return dispatch(setErrorText(data.message));
+      })
+      .catch(() => dispatch(setErrorText(SYSTEM_ERROR)));
+  };
 };
 
-export const changePassword = (password) => {
- 
-};
+export const changePassword = password => {};
 
-export const setErrorText = (value) => {
+export const setErrorText = value => {
   return {
-      type: SET_ERROR,
-      value
-  }
+    type: SET_ERROR,
+    value
+  };
 };

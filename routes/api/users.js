@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const keys = require("../../config/keys");
-
+const passport = require("passport");
 
 // Load input validation
 const validateRegisterInput = require("../../validation/register");
@@ -79,8 +79,9 @@ router.post("/login", (req, res) => {
         // User matched
         // Create JWT Payload
         const payload = {
-          id: user.id,
-          name: user.name
+          //id: user.id,
+          name: user.name,
+          email: user.email
         };
 
         // Sign token
@@ -93,7 +94,7 @@ router.post("/login", (req, res) => {
           (err, token) => {
             res.json({
               success: true,
-              token: "Bearer " + token
+              token: token
             });
           }
         );
@@ -104,6 +105,60 @@ router.post("/login", (req, res) => {
       }
     });
   });
+});
+
+// @route POST user/update
+// @desc Update user info
+// @access Public
+router.post("/update", (req, res, next) => {
+  passport.authenticate(
+    "jwt",
+    {
+      session: false
+    },
+    async (err, user, info) => {
+      if (err || !user) {
+        return res.json({
+          returnCode: -1,
+          message: "JWT không hợp lệ."
+        });
+      }
+
+      //let avatar = req.body.avatar;
+      const { email, name } = req.body;
+      //const newAvatarFile = req.files[0];
+
+      // if (newAvatarFile) {
+      //     try {
+      //         avatar = await Firebase.UploadImageToStorage(newAvatarFile);
+      //     } catch (e) {
+      //         console.error(e);
+      //         avatar = req.body.avatar;
+      //     }
+      // }
+
+      User.findOneAndUpdate(
+        { email: email },
+        { $set: { name: name } },
+        { new: true },
+        (err, doc) => {
+          if (err) {
+            res.json({
+              returnCode: 0,
+              message: "Hệ Thống Có Lỗi. Vui Lòng Thử Lại Sau."
+            });
+          } else {
+            console.log(doc);
+            res.json({
+              returnCode: 1,
+              message: "Cập Nhật Thành Công.",
+              doc
+            });
+          }
+        }
+      );
+    }
+  )(req, res, next);
 });
 
 module.exports = router;

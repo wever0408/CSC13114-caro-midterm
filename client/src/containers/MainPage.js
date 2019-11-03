@@ -1,4 +1,3 @@
-import { Component } from 'react';
 import React, { useCallback, useState } from 'react';
 import { connect } from 'react-redux';
 import { Col, Row, Button } from 'antd';
@@ -86,7 +85,7 @@ function mapStateToProps(state) {
     errorText: state.auth.errorText,
   };
 }
-
+ 
 function mapDispatchToProps(dispatch) {
   return {
     logoutUser: () => dispatch(logoutUser())

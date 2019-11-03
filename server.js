@@ -13,10 +13,6 @@ require("./config/passport")(passport);
 // Passport middleware
 app.use(passport.initialize());
 
-// Routes
-app.use("/user", usersRouter);
-app.use("/auth", authenRouter);
-
 // Bodyparser middleware
 app.use(
   bodyParser.urlencoded({
@@ -24,6 +20,10 @@ app.use(
   })
 );
 app.use(bodyParser.json());
+
+// Routes
+app.use("/user", usersRouter);
+app.use("/auth", authenRouter);
 
 // DB Config
 const db = require("./config/keys").mongoURI;
