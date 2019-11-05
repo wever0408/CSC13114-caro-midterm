@@ -4,7 +4,7 @@ import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import setAuthToken from '../utils/setAuthToken';
 
-import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING, SET_ERROR } from './types';
+import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING, SET_ERROR, SYSTEM_ERROR } from './types';
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
@@ -140,7 +140,7 @@ export const loginWithGoogle = () => {
 };
 
 export const updateUserInfo = userData => {
-  dispatch => {
+  return dispatch => {
     axios
       .post(`/user/update`, userData, {
         timeout: 20000
@@ -157,7 +157,7 @@ export const updateUserInfo = userData => {
 };
 
 export const changePassword = password => {
-  (dispatch, getState) => {
+  return (dispatch, getState) => {
     const { email } = getState().auth.user;
     axios
       .post(

@@ -1,4 +1,4 @@
-import { SET_CURRENT_USER, USER_LOADING, SET_ERROR } from '../actions/types';
+import { SET_CURRENT_USER, USER_LOADING, SET_ERROR } from "../utils/constants";
 
 const isEmpty = require('is-empty');
 

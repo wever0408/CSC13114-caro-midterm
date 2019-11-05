@@ -10,6 +10,8 @@ import GameStart from './Game';
 import Register from './auth/Register';
 import Login from './auth/Login';
 import MainPage from './MainPage';
+import OnlineMode from './OnlineMode';
+
 // import PrivateRoute from "./private-route/PrivateRouter"
 
 // Check for token to keep user logged in
@@ -37,6 +39,7 @@ const App = () => (
     <div className="App">
       <Route exact path="/" component={MainPage} />
       <Route exact path="/game" component={GameStart} />
+      <Route exact path="/online" component={OnlineMode} />
 
       <Route exact path="/register" component={Register} />
       <Route exact path="/login" component={Login} />

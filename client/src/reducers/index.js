@@ -5,6 +5,7 @@ import step from './step'
 import xIsNext from './xIsNext'
 import authReducer from "./authReducer"
 import errorReducer from "./errorReducer"
+import onlineModeReducer from "./onlineReducer"
 
 export default combineReducers({
   history,
@@ -12,6 +13,7 @@ export default combineReducers({
   step,
   xIsNext,
   auth: authReducer,
-  errors: errorReducer
+  errors: errorReducer,
+  online: onlineModeReducer
 })
 
