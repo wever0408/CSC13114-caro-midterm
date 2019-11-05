@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import io from 'socket.io-client';
 import { Modal } from 'antd';
 import OnlineGame from '../components/OnlineMode/OnlineGame';
+import FindingPlayer from '../components/OnlineMode/FindingPlayer';
 
 import {
   joinNewGame,
@@ -205,20 +206,8 @@ class OnlineGameContainer extends React.Component {
   render() {
     const { findingPlayer } = this.state;
 
-    // if (findingPlayer)
-    //   return (
-    //     <>
-    //       <div
-    //         className="all-centered"
-    //         style={{
-    //           paddingBottom: '150px',
-    //           fontSize: '48px'
-    //         }}
-    //       >
-    //         Đang Tìm Người Chơi Khác
-    //       </div>
-    //     </>
-    //   );
+    if (findingPlayer)
+    return <FindingPlayer/>;
 
     return (
       <OnlineGame

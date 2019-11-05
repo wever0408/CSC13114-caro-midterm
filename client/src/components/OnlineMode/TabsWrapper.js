@@ -18,18 +18,6 @@ const TabsWrapper = (props) => {
                              fontSize: '18px',
                              fontWeight: 'bold'
                          }}>
-                            <Icon type="unordered-list"/>
-                            Danh sách nước đi
-                         </span>
-                     }>
-                <OnlineMoveHistoryContainer/>
-            </TabPane>
-            <TabPane key="2"
-                     tab={
-                         <span style={{
-                             fontSize: '18px',
-                             fontWeight: 'bold'
-                         }}>
                             <Icon type="wechat"/>
                             Trò chuyện
                          </span>
