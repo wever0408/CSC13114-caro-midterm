@@ -142,9 +142,7 @@ export const loginWithGoogle = () => {
 export const updateUserInfo = userData => {
   return dispatch => {
     axios
-      .post(`/user/update`, userData, {
-        timeout: 20000
-      })
+      .post(`/user/update`, userData)
       .then(res => {
         const data = res.data;
         if (data.returnCode === 1) {

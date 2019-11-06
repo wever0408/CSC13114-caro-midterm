@@ -148,7 +148,7 @@ router.post("/update", (req, res, next) => {
               message: "Hệ thống có lỗi, vui lòng thử lại sau."
             });
           } else {
-            console.log(doc);
+           
             res.json({
               returnCode: 1,
               message: "Cập nhật thành công.",
@@ -172,6 +172,7 @@ router.post("/password", (req, res, next) => {
     },
     async (err, user, info) => {
       if (err || !user) {
+        console.log(user);
         return res.json({
           returnCode: -1,
           message: "JWT không hợp lệ."
@@ -192,7 +193,7 @@ router.post("/password", (req, res, next) => {
               message: "Hệ thống có lỗi, vui lòng thử lại sau."
             });
           } else {
-            console.log(doc);
+
             res.json({
               returnCode: 1,
               message: "Đổi mật khẩu thành công.",

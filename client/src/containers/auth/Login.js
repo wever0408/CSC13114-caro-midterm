@@ -129,14 +129,14 @@ class Login extends Component {
                   Login
                 </button>
               </div>
-              <div className="col s12" style={{ paddingLeft: '11.250px' }}>
+              <div className="col s12">
                 <Button
                   type="primary"
-                  className="horizontal-center social-login-button button-shadow"
+                  className="social-login-button button-shadow"
                   onClick={this.loginFacebook}
                   style={{
                     background: '#4267B2',
-                    borderColor: '#4267B2'
+                    borderColor: '#4267B2',
                   }}
                 >
                   <Icon
@@ -149,11 +149,12 @@ class Login extends Component {
 
                 <Button
                   type="primary"
-                  className="horizontal-center social-login-button button-shadow"
+                  className="social-login-button button-shadow"
                   onClick={this.loginGoogle}
                   style={{
                     background: '#d34836',
-                    borderColor: '#d34836'
+                    borderColor: '#d34836',
+                    marginLeft: '11.250px'
                   }}
                 >
                   <Icon

@@ -11,7 +11,7 @@ const FindingPlayer = React.memo(() => {
           fontSize: '48px'
         }}
       >
-        Đang Tìm Người Chơi Khác
+        Đang tìm người chơi
       </div>
 
       <div className="all-centered">

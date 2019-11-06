@@ -40,14 +40,14 @@ const EditProfileCard = React.memo(({ errorText, user, onClickCancel }) => {
     dispatch(changePassword(password));
   };
 
-  const changePassword = useCallback(() => {
+  const changedPassword = useCallback(() => {
     setIsChangePassword(true);
   }, [setIsChangePassword]);
 
   const updateInfo = () => {
     const formData = new FormData();
     //if (avatarFile) formData.append('file', avatarFile.originFileObj);
-    formData.append('name', user.name);
+    formData.append('name', fullName);
     formData.append('email', email);
    
     //formData.append('avatar', user.avatar);
@@ -174,7 +174,7 @@ const EditProfileCard = React.memo(({ errorText, user, onClickCancel }) => {
         <Button
             type="link"
             style={{marginTop: '10px', marginBottom: '-5px'}}
-            onClick={changePassword}
+            onClick={changedPassword}
         >
             Đổi Mật Khẩu ?
         </Button>

@@ -38,7 +38,7 @@ const App = () => (
   <Router>
     <div className="App">
       <Route exact path="/" component={MainPage} />
-      <Route exact path="/game" component={GameStart} />
+      <Route exact path="/offline" component={GameStart} />
       <Route exact path="/online" component={OnlineMode} />
 
       <Route exact path="/register" component={Register} />

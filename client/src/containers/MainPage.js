@@ -10,14 +10,22 @@ import ProfileCard from '../components/MainPage/ProfileCard';
 import EditProfileCard from '../components/MainPage/EditProfileCard';
 
 function MainPage(props) {
+
   const [flip, setFlip] = useState(false);
 
   const toggleFlip = useCallback(() => {
     setFlip(curr => !curr);
   }, []);
   const history = useHistory();
+
+
+
+  if (!props.isAuthenticated) {
+        return <Redirect to="/login"/>;
+    }
+
   return (
-    <Row type="flex" align="middle" justify="center" className="all-centered">
+    <Row type="flex" align="middle" justify="center" className="card-all-centered">
       <Col>
         <ReactCardFlip isFlipped={flip}>
           <ProfileCard
@@ -46,7 +54,7 @@ function MainPage(props) {
           size="large"
           block
           className="horizontal-center button-shadow"
-          onClick={() => history.push('/game')}
+          onClick={() => history.push('/online')}
         >
           Chơi Online
         </Button>
@@ -58,7 +66,7 @@ function MainPage(props) {
           size="large"
           block
           className="horizontal-center button-shadow"
-          onClick={() => history.push('/game')}
+          onClick={() => history.push('/offline')}
         >
           Chơi Với Máy
         </Button>
@@ -82,6 +90,7 @@ function MainPage(props) {
 function mapStateToProps(state) {
   return {
     user: state.auth.user,
+    isAuthenticated: state.auth.isAuthenticated,
     errorText: state.auth.errorText,
   };
 }

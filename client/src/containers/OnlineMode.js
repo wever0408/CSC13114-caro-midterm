@@ -42,10 +42,10 @@ class OnlineGameContainer extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.user) {
+    if (this.props.isAuthenticated) {
       this.socket.emit('findPlayer', this.props.user);
     } else {
-      this.props.history.push('/');
+      this.props.history.push('/login');
       return;
     }
 
@@ -226,6 +226,7 @@ class OnlineGameContainer extends React.Component {
 function mapStateToProps(state) {
   return {
     user: state.auth.user,
+    isAuthenticated: state.auth.isAuthenticated,
 
     // online
     isMyTurn: state.online.isMyTurn,

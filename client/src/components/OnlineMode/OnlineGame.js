@@ -6,7 +6,7 @@ import Board from './Board';
 //import TabsWrapper from '../game/TabsWrapper';
 import { BASE_COL, BASE_ROW } from '../../utils/constants';
 import { ModalGameEnded } from './Modals';
-import {ModalConfirm} from "./Modals";
+import { ModalConfirm } from './Modals';
 
 class OnlineGame extends React.Component {
   constructor(props) {
@@ -69,12 +69,9 @@ class OnlineGame extends React.Component {
             </Button>
           </Col>
           <Col>
-            <h2>
-              <b>Mã phòng:</b> {this.props.roomID}
-            </h2>
-            <h2>
-              <b>Đối thủ:</b> {this.props.otherPlayerName}
-            </h2>
+            <b>Mã phòng:</b> {this.props.roomID}
+            <br/>
+            <b>Đối thủ:</b> {this.props.otherPlayer.name}
           </Col>
         </Row>
 
@@ -89,7 +86,7 @@ class OnlineGame extends React.Component {
               />
             </div>
           </Col>
-          <Col offset={1}>
+          <Col offset={3}  >
             <div className="game-info-section">
               {this.getStatus()}
 
@@ -104,52 +101,51 @@ class OnlineGame extends React.Component {
                   <Button
                     type="primary"
                     className="button-shadow button-online"
-                    style={{textAlign: 'center'}}
+                    style={{ textAlign: 'center' }}
                     block
                     onClick={() =>
                       ModalConfirm(
-                        'Bạn Xác Nhận Muốn Xin Đi Lại ?',
+                        'Bạn xác nhận muốn xin đi lại ?',
                         this.props.handleOnRequestUndo
                       )
                     }
                   >
-                    Xin đi lại
+                    Undo req
                   </Button>
                 </Col>
                 <Col span={7}>
                   <Button
                     type="default"
                     className="button-shadow button-online"
-                    style={{textAlign: 'center'}}
+                    style={{ textAlign: 'center' }}
                     block
                     onClick={() =>
                       ModalConfirm(
-                        'Bạn Xác Nhận Muốn Xin Hòa ?',
+                        'Bạn xác nhận muốn xin hòa ?',
                         this.props.handleOnRequestDraw
                       )
                     }
                   >
-                    Xin hòa
+                    Draw req
                   </Button>
                 </Col>
                 <Col span={7}>
                   <Button
                     type="danger"
                     className="button-shadow button-online"
-                    style={{textAlign: 'center'}}
+                    style={{ textAlign: 'center' }}
                     block
                     onClick={() =>
                       ModalConfirm(
-                        'Bạn Xác Nhận Muốn Đầu Hàng ?',
+                        'Bạn xác nhận muốn đầu hàng ?',
                         this.props.handleOnRequestSurrender
                       )
                     }
                   >
-                    Đầu hàng
+                    Surrender
                   </Button>
                 </Col>
               </Row>
-
             </div>
           </Col>
         </Row>

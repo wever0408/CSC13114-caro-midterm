@@ -22,7 +22,6 @@ module.exports = function(passport) {
 
   passport.use(
     new JwtStrategy(opts, (jwt_payload, done) => {
-      console.log(opts);
       User.findOne({email: jwt_payload.email})
         .then(user => {
           if (user) {
